@@ -1,0 +1,52 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      args:
+        user: jay
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    container_name: travel-api
+    restart: unless-stopped
+    depends_on:
+      - db
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - backend
+
+  db:
+    image: mysql:5.7
+    container_name: travel-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      SERVICE_NAME: mysql
+      SERVICE_TAGS: dev
+    volumes:
+      - mysqldb:/var/lib/mysql
+    networks:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mysqldb:
