@@ -249,6 +249,6 @@ class TourListTest extends TestCase
 
         $response = $this->getJson('/api/v1/travels/' . $travel->slug . '/tours?priceFrom=abcde');
         $response->assertStatus(422);
-    }    
+    }
 
 }
