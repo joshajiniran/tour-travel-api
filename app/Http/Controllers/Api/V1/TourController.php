@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TourRequest;
+use App\Http\Requests\TourParamRequest;
 use App\Http\Resources\TourResource;
 use App\Models\Travel;
 
 class TourController extends Controller
 {
-    public function index(Travel $travel, TourRequest $request)
+    public function index(Travel $travel, TourParamRequest $request)
     {
         $tours = $travel->tours()
             ->when($request->priceFrom, function ($query) use ($request) {
