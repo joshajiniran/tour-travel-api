@@ -28,7 +28,7 @@ class TourParamRequest extends FormRequest
             'priceFrom' => 'numeric',
             'priceTo' => 'numeric',
             'sortBy' => Rule::in(['price']),
-            'sortOrder' => Rule::in(['asc', 'desc'])
+            'sortOrder' => Rule::in(['asc', 'desc']),
         ];
     }
 

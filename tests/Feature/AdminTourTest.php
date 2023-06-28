@@ -16,7 +16,7 @@ class AdminTourTest extends TestCase
     public function test_unauthenticated_user_cannot_create_tours(): void
     {
         $travel = Travel::factory()->create();
-        $response = $this->postJson('/api/v1/admin/travels/' . $travel->id . '/tours');
+        $response = $this->postJson('/api/v1/admin/travels/'.$travel->id.'/tours');
 
         $response->assertStatus(401);
         $response->assertJsonStructure(['message']);
@@ -29,7 +29,7 @@ class AdminTourTest extends TestCase
         $user = User::factory()->create();
         $user->roles()->attach(Role::where('name', 'editor')->value('id'));
 
-        $response = $this->actingAs($user)->postJson('/api/v1/admin/travels/' . $travel->id . '/tours');
+        $response = $this->actingAs($user)->postJson('/api/v1/admin/travels/'.$travel->id.'/tours');
 
         $response->assertStatus(403);
     }
@@ -41,7 +41,7 @@ class AdminTourTest extends TestCase
         $user->roles()->attach(Role::where('name', 'admin')->value('id'));
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($user)->postJson('/api/v1/admin/travels/' . $travel->id . '/tours', [
+        $response = $this->actingAs($user)->postJson('/api/v1/admin/travels/'.$travel->id.'/tours', [
             'name' => 'Municado Extraction',
             'start_date' => now(),
             'end_date' => now()->addDays(11),
@@ -62,7 +62,7 @@ class AdminTourTest extends TestCase
             'name' => 'Meribund Waterfall',
             'start_date' => '2023-12-11',
             'end_date' => '2020-11-11',
-            'price' => 1000
+            'price' => 1000,
         ]);
 
         $response->assertStatus(422);

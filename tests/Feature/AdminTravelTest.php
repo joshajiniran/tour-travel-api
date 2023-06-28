@@ -69,7 +69,7 @@ class AdminTravelTest extends TestCase
         $user->roles()->attach(Role::where('name', 'editor')->value('id'));
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($user)->putJson('/api/v1/admin/travels/' . $travel->id, [
+        $response = $this->actingAs($user)->putJson('/api/v1/admin/travels/'.$travel->id, [
             'name' => 'Meribund Waterfall Updated',
             'is_public' => 1,
             'description' => 'Description is updated with test',
@@ -88,8 +88,8 @@ class AdminTravelTest extends TestCase
         $user->roles()->attach(Role::where('name', 'editor')->value('id'));
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($user)->putJson('/api/v1/admin/travels/' . $travel->id, [
-            'name' => 'Meribund Waterfall Updated'
+        $response = $this->actingAs($user)->putJson('/api/v1/admin/travels/'.$travel->id, [
+            'name' => 'Meribund Waterfall Updated',
         ]);
 
         $response->assertStatus(422);
